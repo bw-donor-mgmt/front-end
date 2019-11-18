@@ -1,7 +1,10 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
+import { connect } from 'react-redux'
 import * as Yup from "yup";
-import axios from "axios";
+
+import { postSignup } from '../actions'
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import NavLogin from "./NavLogin";
 
 const SignUpPage = ({ touched, errors }) => {
@@ -33,19 +36,23 @@ const FormikSignupForm = withFormik({
       password: password || ""
     };
   },
+  
   validationSchema: Yup.object().shape({
     username: Yup.string().required(),
     password: Yup.string().required()
   }),
+
   handleSubmit(values, { setStatus }) {
-    axios
-      .post("", values)
-      .then(res => {
-        setStatus(res.data);
-        console.log(res);
-      })
-      .catch(err => console.log(err.response));
+    console.log(values)
+    axiosWithAuth()
+    .post('https://bountiful2.herokuapp.com/auth/register', values)
+    .then(res => {
+        console.log(res)
+        setStatus(res.data)
+    })
+    .catch(err => console.log(err))
   }
 })(SignUpPage);
-export default FormikSignupForm;
+
+export default connect(null, { postSignup })(FormikSignupForm);
 console.log("this is the HOC", FormikSignupForm);

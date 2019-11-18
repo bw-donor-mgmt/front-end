@@ -1,8 +1,9 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import NavLogin from "./NavLogin";
+import { connect } from 'react-redux'
+import { postLogin } from '../actions'
 
 const LoginPage = ({ touched, errors }) => {
   return (
@@ -33,19 +34,24 @@ const FormikLoginForm = withFormik({
       password: password || ""
     };
   },
+
   validationSchema: Yup.object().shape({
     username: Yup.string().required(),
     password: Yup.string().required()
   }),
-  handleSubmit(values, { setStatus }) {
-    axios
-      .post("", values)
-      .then(res => {
-        setStatus(res.data);
-        console.log(res);
-      })
-      .catch(err => console.log(err.response));
+
+  handleSubmit(values, { postLogin, setStatus }) {
+    postLogin(values)
   }
 })(LoginPage);
-export default FormikLoginForm;
+
+export default connect(null, { postLogin })(FormikLoginForm);
 console.log("this is the HOC", FormikLoginForm);
+
+// axios
+// .post("", values)
+// .then(res => {
+//   setStatus(res.data);
+//   console.log(res);
+// })
+// .catch(err => console.log(err.response));
