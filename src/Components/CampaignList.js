@@ -4,14 +4,15 @@ import { axiosWithAuth } from "../Utils/AxiosWithAuth";
 
 const CampaignList = () => {
   const [list, setList] = useState([]);
+  const id = 1;
   useEffect(() => {
     axiosWithAuth()
-      .get("campaigns/4")
+      .get(`organizations/${id}/campaigns`)
       .then(response => setList(response.data))
       .catch(error => {
         console.log(error);
       });
-  });
+  }, []);
   return (
     <section className="list">
       <CampaignCard
