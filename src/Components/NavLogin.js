@@ -5,7 +5,7 @@ const NavLogin = () => {
   return (
     <nav>
       <h1>Donor Management</h1>
-      <Link to="/Login">Login</Link>
+      <Link to="/">Login</Link>
       <Link to="/SignUp">SignUp</Link>
     </nav>
   );

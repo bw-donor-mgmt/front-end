@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header"></header>
-      <Route exact path="/Login" component={Login} />
+      <Route exact path="/" component={Login} />
       <Route exact path="/SignUp" component={SignUp} />
       <Route exact path="/Homepage" component={Homepage} />
       <Route path="/charity/:id" component={DonorList} />
