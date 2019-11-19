@@ -2,7 +2,6 @@ import React from "react";
 import { withFormik, Form, Field } from "formik";
 import { connect } from 'react-redux'
 import * as Yup from "yup";
-
 import { postSignup } from '../actions'
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import NavLogin from "./NavLogin";
@@ -51,7 +50,7 @@ const FormikSignupForm = withFormik({
   handleSubmit(values, { setStatus }) {
     console.log(values)
     axiosWithAuth()
-    .post('https://bountiful2.herokuapp.com/auth/register', values)
+    .post('auth/register', values)
     .then(res => {
         console.log(res)
         setStatus(res.data)

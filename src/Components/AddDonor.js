@@ -1,7 +1,7 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import Axios from "axios";
+import { axiosWithAuth } from "../Utils/AxiosWithAuth";
 
 const AddDonor = ({ touched, errors }) => {
   return (
@@ -22,7 +22,7 @@ const AddDonor = ({ touched, errors }) => {
         <option value="Email">Email</option>
       </Field>
       {touched.method && errors.method && <p className="MD">{errors.method}</p>}
-      <button type="submit">Login</button>
+      <button type="submit">Create New Donor</button>
     </Form>
   );
 };
@@ -43,13 +43,15 @@ const FormikAddDonor = withFormik({
     email: Yup.string().required(),
     contacted_on: Yup.string().required()
   }),
-  handleSubmit(values, { setStatus }) {
-    Axios.post("", values)
+  handleSubmit(values, { props, setStatus }) {
+    axiosWithAuth()
+      .post("/donors", values)
       .then(res => {
         setStatus(res.data);
         console.log(res);
       })
       .catch(err => console.log(err.response));
+    props.toggleUpdate();
   }
 })(AddDonor);
 

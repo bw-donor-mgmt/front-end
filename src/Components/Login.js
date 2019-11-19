@@ -42,6 +42,7 @@ const FormikLoginForm = withFormik({
 
   handleSubmit(values, { props, setStatus }) {
     props.postLogin(values)
+
   }
 })(LoginPage);
 

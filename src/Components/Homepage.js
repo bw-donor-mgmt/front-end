@@ -1,6 +1,7 @@
 import React from "react";
 import NavMain from "./NavMain";
 import CampaignList from "./CampaignList";
+import AddCampaign from "./AddCampaign";
 
 const Homepage = () => {
   return (
@@ -8,6 +9,7 @@ const Homepage = () => {
       <header>
         <NavMain />
       </header>
+      <AddCampaign />
       <CampaignList />
     </div>
   );
