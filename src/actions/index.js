@@ -10,8 +10,8 @@ export const postLogin = (user) => dispatch => {
         .post('/auth/login', user)
         .then(res => {
             console.log(res)
-            localStorage.setItem('token', res.data.payload);
-            dispatch({ type: LOGIN_SUCCESS, payload: res })
+            localStorage.setItem('token', res.data.token);
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data.token })
         })
         .catch(err => dispatch({ type: LOGIN_FAILURE, payload: err.response.data.error }))
 }
@@ -26,7 +26,7 @@ export const postSignup = (user) => dispatch => {
         .post('/auth/register', user)
         .then(res => {
             console.log(res)
-            dispatch({ type: SIGNUP_SUCCESS, payload: res})
+            dispatch({ type: SIGNUP_SUCCESS, payload: res.data})
         })
         .catch(err => dispatch({ type: SIGNUP_FAILURE, payload: err.response }))
 }

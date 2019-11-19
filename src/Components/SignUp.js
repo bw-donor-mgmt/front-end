@@ -23,6 +23,10 @@ const SignUpPage = ({ touched, errors }) => {
         {touched.password && errors.password && (
           <p className="PW">{errors.password}</p>
         )}
+        <Field type="text" name="organization" placeholder="Organization" />
+        {touched.organization && errors.organization && (
+          <p className="PW">{errors.organization}</p>
+        )}
         <button type="submit">Login</button>
       </Form>
     </section>
@@ -30,16 +34,18 @@ const SignUpPage = ({ touched, errors }) => {
 };
 
 const FormikSignupForm = withFormik({
-  mapPropsToValues({ username, password }) {
+  mapPropsToValues({ username, password, organization }) {
     return {
       username: username || "",
-      password: password || ""
+      password: password || "",
+      organization: organization || ""
     };
   },
-  
+
   validationSchema: Yup.object().shape({
     username: Yup.string().required(),
-    password: Yup.string().required()
+    password: Yup.string().required(),
+    organization: Yup.string().required()
   }),
 
   handleSubmit(values, { setStatus }) {

@@ -40,8 +40,8 @@ const FormikLoginForm = withFormik({
     password: Yup.string().required()
   }),
 
-  handleSubmit(values, { postLogin, setStatus }) {
-    postLogin(values)
+  handleSubmit(values, { props, setStatus }) {
+    props.postLogin(values)
   }
 })(LoginPage);
 
