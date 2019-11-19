@@ -1,7 +1,7 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import { axiosWithAuth } from "../Utils/AxiosWithAuth";
 import NavLogin from "./NavLogin";
 
 const LoginPage = ({ touched, errors }) => {
@@ -38,9 +38,10 @@ const FormikLoginForm = withFormik({
     password: Yup.string().required()
   }),
   handleSubmit(values, { setStatus }) {
-    axios
-      .post("", values)
+    axiosWithAuth()
+      .post("auth/login", values)
       .then(res => {
+        localStorage.setItem("token", res.data.token);
         setStatus(res.data);
         console.log(res);
       })

@@ -1,7 +1,7 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import { axiosWithAuth } from "../Utils/AxiosWithAuth";
 import NavLogin from "./NavLogin";
 
 const SignUpPage = ({ touched, errors }) => {
@@ -20,6 +20,10 @@ const SignUpPage = ({ touched, errors }) => {
         {touched.password && errors.password && (
           <p className="PW">{errors.password}</p>
         )}
+        <Field type="text" name="organization" placeholder="organization" />
+        {touched.organization && errors.organization && (
+          <p className="ORG">{errors.organization}</p>
+        )}
         <button type="submit">Login</button>
       </Form>
     </section>
@@ -27,19 +31,21 @@ const SignUpPage = ({ touched, errors }) => {
 };
 
 const FormikSignupForm = withFormik({
-  mapPropsToValues({ username, password }) {
+  mapPropsToValues({ username, password, organization }) {
     return {
       username: username || "",
-      password: password || ""
+      password: password || "",
+      organization: organization || ""
     };
   },
   validationSchema: Yup.object().shape({
     username: Yup.string().required(),
-    password: Yup.string().required()
+    password: Yup.string().required(),
+    organization: Yup.string().required()
   }),
   handleSubmit(values, { setStatus }) {
-    axios
-      .post("", values)
+    axiosWithAuth()
+      .post("auth/register", values)
       .then(res => {
         setStatus(res.data);
         console.log(res);
