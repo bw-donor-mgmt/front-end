@@ -11,7 +11,9 @@ const CampaignCard = props => {
             With supporting text below as a natural lead-in to additional
             content.
           </CardText>
-          <Button>See Donor List</Button>
+          <Link to={`/charity/${putIdHere}`}>
+            <Button>See Donor List</Button>
+          </Link>
         </CardBody>
       </Card>
     </div>
