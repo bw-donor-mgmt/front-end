@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { axiosWithAuth } from "../Utils/AxiosWithAuth";
-import AddCampaign from "./AddCampaign";
-import CampaignList from "./CampaignList";
+import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 import AddOrg from "./AddOrg";
 
-const Organization = () => {
+const OrganizationList = () => {
   const [org, setOrg] = useState([]);
+  const id = 1;
   useEffect(() => {
     axiosWithAuth()
-      .get(`organizations/1`)
+      .get(`organizations/${id}`)
       .then(response => {
         setOrg(response.data);
         console.log(response);
@@ -20,10 +19,11 @@ const Organization = () => {
   return (
     <div>
       <AddOrg />
-      <AddCampaign />
-      <CampaignList />
+      {/* {org.map(org => (
+        <Organization name={org.name} mission={org.mission} id={org.id}/>
+      ))} */}
     </div>
   );
 };
 
-export default Organization;
+export default OrganizationList;

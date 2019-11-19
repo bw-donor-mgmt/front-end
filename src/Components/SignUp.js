@@ -2,7 +2,7 @@ import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { axiosWithAuth } from "../Utils/AxiosWithAuth";
-import NavLogin from "./NavLogin";
+import NavLogin from "./Nav/NavLogin";
 
 const SignUpPage = ({ touched, errors }) => {
   return (
