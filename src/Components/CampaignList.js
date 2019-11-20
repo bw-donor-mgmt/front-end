@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CampaignCard from "./CampaignCard";
 import { axiosWithAuth } from "../Utils/AxiosWithAuth";
+import AddCampaign from './AddCampaign'
 
 const CampaignList = () => {
   const [list, setList] = useState([]);
@@ -15,6 +16,7 @@ const CampaignList = () => {
   }, []);
   return (
     <section className="list">
+      <AddCampaign />
       <CampaignCard
         key={list.id}
         id={list.id}

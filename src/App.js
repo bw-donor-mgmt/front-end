@@ -6,6 +6,7 @@ import Homepage from "./Components/Homepage";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
 import DonorList from "./Components/DonorList";
+import CampaignList from "./Components/CampaignList";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Route exact path="/" component={Login} />
       <Route exact path="/SignUp" component={SignUp} />
       <Route exact path="/Homepage" component={Homepage} />
-      <Route path="/charity/:id" component={DonorList} />
+      <Route path="/charity/:id" component={CampaignList} />
+      <Route path="/charity/:id/donor" component={DonorList} />
     </div>
   );
 }

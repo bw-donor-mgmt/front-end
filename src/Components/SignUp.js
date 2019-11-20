@@ -3,7 +3,7 @@ import { withFormik, Form, Field } from "formik";
 import { connect } from 'react-redux'
 import * as Yup from "yup";
 import { postSignup } from '../actions'
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithAuth } from '../Utils/AxiosWithAuth';
 import NavLogin from "./NavLogin";
 
 const SignUpPage = ({ touched, errors }) => {
@@ -47,17 +47,10 @@ const FormikSignupForm = withFormik({
     organization: Yup.string().required()
   }),
 
-  handleSubmit(values, { setStatus }) {
-    console.log(values)
-    axiosWithAuth()
-    .post('auth/register', values)
-    .then(res => {
-        console.log(res)
-        setStatus(res.data)
-    })
-    .catch(err => console.log(err))
+  handleSubmit(values, { props, setStatus }) {
+    props.postSignup()
   }
 })(SignUpPage);
 
 export default connect(null, { postSignup })(FormikSignupForm);
-console.log("this is the HOC", FormikSignupForm);
+
