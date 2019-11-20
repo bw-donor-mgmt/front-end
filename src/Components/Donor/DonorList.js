@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { axiosWithAuth } from "../Utils/AxiosWithAuth";
-import CampaignCard from "./CampaignCard";
+import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 import AddDonor from "./AddDonor";
 
 const DonorList = props => {

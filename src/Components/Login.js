@@ -1,9 +1,10 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import NavLogin from "./NavLogin";
 import { connect } from 'react-redux'
 import { postLogin } from '../actions'
+import NavLogin from "./Nav/NavLogin";
+
 
 const LoginPage = ({ touched, errors }) => {
   return (

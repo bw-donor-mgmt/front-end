@@ -3,8 +3,7 @@ import { withFormik, Form, Field } from "formik";
 import { connect } from 'react-redux'
 import * as Yup from "yup";
 import { postSignup } from '../actions'
-import { axiosWithAuth } from '../Utils/AxiosWithAuth';
-import NavLogin from "./NavLogin";
+import NavLogin from "./Nav/NavLogin";
 
 const SignUpPage = ({ touched, errors }) => {
   return (

@@ -1,8 +1,6 @@
 import React from "react";
-import NavMain from "./NavMain";
-import CampaignList from "./CampaignList";
-import AddCampaign from "./AddCampaign";
-import OrganizationList from "./OrganizationList";
+import NavMain from "./Nav/NavMain";
+import OrganizationList from "./Organization/OrganizationList";
 
 const Homepage = () => {
   return (

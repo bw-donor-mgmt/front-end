@@ -1,12 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Route } from "react-router-dom";
 import Homepage from "./Components/Homepage";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
-import DonorList from "./Components/DonorList";
-import CampaignList from "./Components/CampaignList";
+import DonorList from "./Components/Donor/DonorList";
+import CampaignList from "./Components/Campaign/CampaignList";
 
 function App() {
   return (
