@@ -94,7 +94,7 @@ const FullDonorCard = (props) => {
                                     onChange={handleChange}>
                                     <option value="phone">Phone</option>
                                     <option value="email">Email</option>
-                                    </select>
+                                </select>
                             </form>
                         </ModalBody>
                         <ModalFooter>

@@ -1,46 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
-import AddDonor from "./AddDonor";
-import DonorCard from "./DonorCard";
 
-const DonorList = props => {
-  const [donor, setDonor] = useState([]);
+import DonorCard from "./DonorCard";
+import { connect } from "react-redux";
+import { getDonors } from "../../actions"
+import AddDonation  from '../Donations/AddDonations'
+
+const DonorList = (props) => {
   const [campaign, setCampaign] = useState([]);
   const [addedDonor, setAddedDonor] = useState(false);
   const id = props.match.params.id;
 
-  const toggleUpdate = () => {
+  const toggleUpdateCampDonor = () => {
     setAddedDonor(!addedDonor);
   };
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`campaigns/${id}/donors`)
-      .then(response => {
-        setDonor(response.data);
-        console.log("axiosDonor", response);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, [addedDonor]);
+  
+  useEffect(()=> {
+    props.getDonors(id)
+  },[addedDonor])
+
   useEffect(() => {
     axiosWithAuth()
       .get(`campaigns/${id}`)
       .then(response => {
         setCampaign(response.data);
-        console.log(response.data);
       })
       .catch(error => {
         console.log(error);
       });
-  }, [addedDonor]);
+  }, []);
+
+  if(props.isLoading) {
+    return(
+    <div>Loading</div>
+    )
+  }
+
   return (
     <section className="list">
       <h3>{campaign.name}</h3>
       <p>Goal: ${campaign.goal}</p>
-      <AddDonor toggleUpdate={toggleUpdate} />
-      {console.log(donor)}
-      {donor.map(list => {
+      <AddDonation toggleUpdateCampDonor={toggleUpdateCampDonor}/>
+      {props.donor.map(list => {
         return (
           <DonorCard
             key={list.id}
@@ -57,4 +58,11 @@ const DonorList = props => {
   );
 };
 
-export default DonorList;
+const mapStateToProps = ({donorReducer}) => {
+    return {
+      donor: donorReducer.donorData,
+      isLoading: donorReducer.isLoading
+    }
+}
+
+export default connect(mapStateToProps, { getDonors })(DonorList);

@@ -15,21 +15,21 @@ export const getAllDonors = () => dispatch => {
             dispatch({ type: GET_ALL_DONOR_FAILURE, payload: error})
         )}
 
-// export const GET_DONOR_START = "GET_DONOR_START"
-// export const GET_DONOR_SUCCESS = "GET_DONOR_SUCCESS"
-// export const GET_DONOR_FAILURE = "GET_DONOR_FAILURE"
+export const GET_DONOR_START = "GET_DONOR_START"
+export const GET_DONOR_SUCCESS = "GET_DONOR_SUCCESS"
+export const GET_DONOR_FAILURE = "GET_DONOR_FAILURE"
 
-// export const getCampaign = (id) => dispatch => {
-//     dispatch({ type: GET_DONOR_START })
-//     axiosWithAuth()
-//         .get(`organizations/${id}/campaigns`)
-//         .then(res => {
-//             dispatch({ type: GET_DONOR_SUCCESS, payload: res.data })
-//         })
-//         .catch(error =>
-//             dispatch({ type: GET_DONOR_FAILURE, payload: error })
-//         )
-// }
+export const getDonors = (id) => dispatch => {
+    dispatch({ type: GET_DONOR_START })
+    axiosWithAuth()
+        .get(`campaigns/${id}/donors`)
+        .then(res => {
+            dispatch({ type: GET_DONOR_SUCCESS, payload: res.data })
+        })
+        .catch(error =>
+            dispatch({ type: GET_DONOR_FAILURE, payload: error })
+        )
+}
 
 export const NEW_DONOR_START = "NEW_DONOR_START"
 export const NEW_DONOR_SUCCESS = "NEW_DONOR_SUCCESS"

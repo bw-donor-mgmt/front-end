@@ -2,9 +2,9 @@ import {
     GET_ALL_DONOR_START,
     GET_ALL_DONOR_SUCCESS,
     GET_ALL_DONOR_FAILURE,
-    // GET_DONOR_START,
-    // GET_DONOR_SUCCESS,
-    // GET_DONOR_FAILURE,
+    GET_DONOR_START,
+    GET_DONOR_SUCCESS,
+    GET_DONOR_FAILURE,
     NEW_DONOR_START,
     NEW_DONOR_SUCCESS,
     NEW_DONOR_FAILURE,
@@ -46,27 +46,27 @@ export const donorReducer = (state = initState, { type, payload }) => {
                 allDonorData: [],
                 errors: payload
             }
-        // case GET_DONOR_START:
-        //     return {
-        //         ...state,
-        //         isLoading: true,
-        //         donorData: [],
-        //         errors: null
-        //     }
-        // case GET_DONOR_SUCCESS:
-        //     return {
-        //         ...state,
-        //         isLoading: false,
-        //         donorData: payload,
-        //         errors: null
-        //     }
-        // case GET_DONOR_FAILURE:
-        //     return {
-        //         ...state,
-        //         isLoading: false,
-        //         donorData: [],
-        //         errors: payload
-        //     }
+        case GET_DONOR_START:
+            return {
+                ...state,
+                isLoading: true,
+                donorData: [],
+                errors: null
+            }
+        case GET_DONOR_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                donorData: payload,
+                errors: null
+            }
+        case GET_DONOR_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                donorData: [],
+                errors: payload
+            }
         case NEW_DONOR_START:
             return {
                 ...state,
@@ -109,7 +109,7 @@ export const donorReducer = (state = initState, { type, payload }) => {
         case DELETE_DONOR_SUCCESS:
             const { allDonorData } = state
             const newDonorData = allDonorData.filter(donor => {
-                return donor.id !== payload.id
+                return donor.id !== payload[0].id
             })
             return {
                 ...state,
