@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
-import { getDonations } from '../../actions'
+import { getDonations } from "../../actions";
 import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 import DonationCard from "./DonationCard";
 import AddDonations from "./AddDonations";
-import { from } from "rxjs";
 
-const DonationList = (props) => {
+const DonationList = props => {
   const id = props.match.params.id;
   // const donorId = props.match.params.donorId;
   const [donor, setDonor] = useState([]);
 
   useEffect(() => {
-    props.getDonations(id)
+    props.getDonations(id);
   }, []);
 
   useEffect(() => {
@@ -28,10 +27,8 @@ const DonationList = (props) => {
       });
   }, []);
 
-  if(props.isLoading) {
-    return (
-      <div>Loading</div>
-    )
+  if (props.isLoading) {
+    return <div>Loading</div>;
   }
 
   return (
@@ -53,11 +50,11 @@ const DonationList = (props) => {
   );
 };
 
-const mapStateToProps = ({donationReducer}) => {
+const mapStateToProps = ({ donationReducer }) => {
   return {
     donation: donationReducer.donationData,
     isLoading: donationReducer.isLoading
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, { getDonations })(DonationList);
