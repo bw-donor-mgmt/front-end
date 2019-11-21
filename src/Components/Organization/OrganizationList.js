@@ -12,7 +12,7 @@ const OrganizationList = (props) => {
     props.getOrg()
   },[toggleGet])
 
-  function toggleUpdate() {
+  const toggleUpdate = () => {
     setToggleGet(!toggleGet)
   }
 
@@ -24,9 +24,9 @@ const OrganizationList = (props) => {
 
   return (
     <div>
-      <AddOrg toggleUpdate={()=>toggleUpdate()}/>
+      <AddOrg toggleUpdate={toggleUpdate}/>
       {props.org.map(org => (
-        <Organization toggleUpdate={toggleUpdate} name={org.name} mission={org.mission} id={org.id}/>
+        <Organization key={org.id} toggleUpdate={toggleUpdate} name={org.name} mission={org.mission} id={org.id}/>
       ))}
     </div>
   );

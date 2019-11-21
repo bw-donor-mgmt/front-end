@@ -8,6 +8,7 @@ import SignUp from "./Components/SignUp";
 import DonorList from "./Components/Donor/DonorList";
 import DonationList from "./Components/Donations/DonationList";
 import CampaignList from "./Components/Campaign/CampaignList";
+import FullDonorList from './Components/Donor/FullDonorList'
 import PrivateRoute from "./Routes/PrivateRoute"
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route exact path="/" component={Login} />
       <Route exact path="/SignUp" component={SignUp} />
       <PrivateRoute exact path="/Homepage" component={Homepage} />
+      <PrivateRoute exact path="/Donors" component={FullDonorList} />
       <PrivateRoute exact path="/charity/:id" component={CampaignList} />
       <PrivateRoute exact path="/charity/:id/donor" component={DonorList} />
       <PrivateRoute path="/charity/:id/donor/:donorId" component={DonationList} />

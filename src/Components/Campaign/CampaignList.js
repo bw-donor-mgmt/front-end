@@ -8,12 +8,12 @@ import AddCampaign from "./AddCampaign";
 
 const CampaignList = (props) => {
   const [org, setOrg] = useState([]);
-  const [toggleCampGet, setCampToggleGet] = useState(false)
+  const [updateCamp, setUpdateCamp] = useState(false)
   const id = props.match.params.id;
 
   useEffect(()=> {
     props.getCampaign(id)
-  },[toggleCampGet])
+  },[updateCamp])
 
   useEffect(() => {
     axiosWithAuth()
@@ -26,8 +26,8 @@ const CampaignList = (props) => {
       });
   }, []);
 
-  function toggleCampUpdate(){
-    setCampToggleGet(!toggleCampGet)
+  const toggleCampUpdate = () =>{
+    setUpdateCamp(!updateCamp)
   }
 
   if(props.isLoading){
@@ -39,7 +39,7 @@ const CampaignList = (props) => {
   return (
     <section className="list">
       <h1>{org.name}</h1>
-      <AddCampaign toggleCampUpdate={()=>toggleCampUpdate()}/>
+      <AddCampaign toggleCampUpdate={toggleCampUpdate}/>
       {props.list.map(list => {
         return (
           <CampaignCard
@@ -48,6 +48,7 @@ const CampaignList = (props) => {
             name={list.name}
             description={list.description}
             goal={list.goal}
+            toggleCampUpdate={toggleCampUpdate}
           />
         );
       })}

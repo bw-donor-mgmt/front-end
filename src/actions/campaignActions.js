@@ -9,7 +9,6 @@ export const getCampaign = (id) => dispatch => {
     axiosWithAuth()
         .get(`organizations/${id}/campaigns`)
         .then(res => {
-            console.log('get camp', res)
             dispatch({ type: GET_CAMPAIGN_SUCCESS, payload: res.data })
         })
         .catch(error =>
@@ -26,7 +25,6 @@ export const createCampaign = (newCamp) => dispatch => {
     axiosWithAuth()
         .post('campaigns', newCamp)
         .then(res => {
-            console.log('postCamp', res)
             dispatch({ type: NEW_CAMPAIGN_SUCCESS, payload: res.data }) 
         })
         .catch(err =>
@@ -44,7 +42,6 @@ export const updateCampaign = (id, campChanges) => dispatch => {
     axiosWithAuth()
         .put(`campaigns/${id}`, campChanges)
         .then(res => {
-            console.log('updateCAMPAIGN', res)
             dispatch({ type: UPDATE_CAMPAIGN_SUCCESS, payload: res.data })
         })
         .catch(err =>
@@ -56,10 +53,10 @@ export const DELETE_CAMPAIGN_START = "DELETE_CAMPAIGN_START"
 export const DELETE_CAMPAIGN_SUCCESS = "DELETE_CAMPAIGN_SUCCESS"
 export const DELETE_CAMPAIGN_FAILURE = "DELETE_CAMPAIGN_FAILURE"
 
-export const deleteCAMPAIGN = (id) => dispatch => {
+export const deleteCampaign = (id) => dispatch => {
     dispatch({type: DELETE_CAMPAIGN_START})
     axiosWithAuth()
-        .delete(`CAMPAIGNanizations/${id}`)
+        .delete(`campaigns/${id}`)
         .then(res => {
             console.log('deleteCAMPAIGN', res)
             dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data})

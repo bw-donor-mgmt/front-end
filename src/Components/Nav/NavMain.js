@@ -6,6 +6,7 @@ const NavMain = () => {
     <nav>
       <h1>Donor Management</h1>
       <Link to="/Homepage">Home</Link>
+      <Link to="/Donors">Donors</Link>
     </nav>
   );
 };

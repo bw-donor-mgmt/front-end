@@ -14,10 +14,19 @@ import {
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 
-import { updateCampaign } from '../../actions'
+import { updateCampaign, deleteCampaign } from '../../actions'
 
 const CampaignCard = (props) => {
-  const { buttonLabel, className, name, description, goal, id, updateCampaign } = props
+  const {
+    buttonLabel,
+    className,
+    name,
+    description,
+    goal,
+    id,
+    updateCampaign,
+    deleteCampaign
+  } = props
   const [modal, setModal] = useState(false);
   const [campInfo, setCampInfo] = useState({
     name: name,
@@ -35,6 +44,12 @@ const CampaignCard = (props) => {
     e.preventDefault()
     updateCampaign(id, campInfo)
     props.toggleCampUpdate()
+    setModal(!modal)
+  }
+
+  const deleteCamp = e => {
+    e.preventDefault()
+    deleteCampaign(id)
     setModal(!modal)
   }
 
@@ -77,7 +92,7 @@ const CampaignCard = (props) => {
             </ModalBody>
             <ModalFooter>
               <Button color="primary" onClick={submitCampForm}>Update</Button>{' '}
-              <Button color="secondary" onClick={toggleCamp}>Delete</Button>
+              <Button color="secondary" onClick={deleteCamp}>Delete</Button>
             </ModalFooter>
           </Modal>
         </CardBody>
@@ -87,4 +102,4 @@ const CampaignCard = (props) => {
   );
 };
 
-export default connect(null, { updateCampaign })(CampaignCard);
+export default connect(null, { updateCampaign, deleteCampaign })(CampaignCard);
