@@ -1,7 +1,9 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
+import { connect } from 'react-redux'
+
+import { createCampaign } from '../../actions'
 
 const AddCampaign = ({ touched, errors }) => {
   return (
@@ -27,20 +29,17 @@ const FormikAddCampaign = withFormik({
       goal: goal || ""
     };
   },
+
   validationSchema: Yup.object().shape({
     name: Yup.string().required(),
     description: Yup.string().required(),
     goal: Yup.number().required()
   }),
-  handleSubmit(values, { setStatus }) {
-    axiosWithAuth()
-      .post("/campaigns", values)
-      .then(res => {
-        setStatus(res.data);
-        console.log(res);
-      })
-      .catch(err => console.log(err.response));
+
+  handleSubmit(values, { props }) {
+    props.createCampaign(values)
+    props.toggleUpdate()
   }
 })(AddCampaign);
 
-export default FormikAddCampaign;
+export default connect(null, { createCampaign })(FormikAddCampaign);

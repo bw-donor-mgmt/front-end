@@ -1,37 +1,46 @@
 import React, { useState, useEffect } from "react";
-import CampaignCard from "./CampaignCard";
+import { connect } from 'react-redux'
+
 import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
+import { getCampaign } from '../../actions'
+import CampaignCard from "./CampaignCard";
 import AddCampaign from "./AddCampaign";
 
-const CampaignList = props => {
-  const [list, setList] = useState([]);
-  const id = props.match.params.id;
+const CampaignList = (props) => {
   const [org, setOrg] = useState([]);
+  const [toggleCampGet, setCampToggleGet] = useState(false)
+  const id = props.match.params.id;
 
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`organizations/${id}/campaigns`)
-      .then(response => setList(response.data))
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+  useEffect(()=> {
+    props.getCampaign(id)
+  },[toggleCampGet])
+
   useEffect(() => {
     axiosWithAuth()
       .get(`organizations/${id}/info`)
       .then(response => {
         setOrg(response.data);
-        console.log(response);
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
+
+  function toggleCampUpdate(){
+    setCampToggleGet(!toggleCampGet)
+  }
+
+  if(props.isLoading){
+    return (
+      <div>Loading</div>
+    )
+  }
+  
   return (
     <section className="list">
       <h1>{org.name}</h1>
-      <AddCampaign />
-      {list.map(list => {
+      <AddCampaign toggleCampUpdate={()=>toggleCampUpdate()}/>
+      {props.list.map(list => {
         return (
           <CampaignCard
             key={list.id}
@@ -46,4 +55,11 @@ const CampaignList = props => {
   );
 };
 
-export default CampaignList;
+const mapStateToProps = ({campReducer}) => {
+  return {
+    list: campReducer.campData,
+    isLoading: campReducer.isLoading
+  }
+}
+
+export default connect(mapStateToProps, { getCampaign })(CampaignList);

@@ -1,97 +1,97 @@
 import {
-    GET_ORG_START,
-    GET_ORG_SUCCESS,
-    GET_ORG_FAILURE,
-    NEW_ORG_START,
-    NEW_ORG_SUCCESS,
-    NEW_ORG_FAILURE,
-    UPDATE_ORG_START,
-    UPDATE_ORG_SUCCESS,
-    UPDATE_ORG_FAILURE,
-    DELETE_ORG_START,
-    DELETE_ORG_SUCCESS,
-    DELETE_ORG_FAILURE
+    GET_CAMPAIGN_START,
+    GET_CAMPAIGN_SUCCESS,
+    GET_CAMPAIGN_FAILURE,
+    NEW_CAMPAIGN_START,
+    NEW_CAMPAIGN_SUCCESS,
+    NEW_CAMPAIGN_FAILURE,
+    UPDATE_CAMPAIGN_START,
+    UPDATE_CAMPAIGN_SUCCESS,
+    UPDATE_CAMPAIGN_FAILURE,
+    DELETE_CAMPAIGN_START,
+    DELETE_CAMPAIGN_SUCCESS,
+    DELETE_CAMPAIGN_FAILURE
 } from '../actions'
 
 const initState = {
     isLoading: false,
-    orgData: [],
+    campData: [],
     errors: null
 }
 
-export const orgReducer = (state = initState, { type, payload }) => {
+export const campReducer = (state = initState, { type, payload }) => {
     switch (type) {
-        case GET_ORG_START:
+        case GET_CAMPAIGN_START:
             return {
                 ...state,
                 isLoading: true,
-                orgData: [],
+                campData: [],
                 errors: null
             }
-        case GET_ORG_SUCCESS:
+        case GET_CAMPAIGN_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                orgData: payload,
+                campData: payload,
                 errors: null
             }
-        case GET_ORG_FAILURE:
+        case GET_CAMPAIGN_FAILURE:
             return {
                 ...state,
                 isLoading: false,
-                orgData: [],
+                campData: [],
                 errors: payload
             }
-        case NEW_ORG_START:
+        case NEW_CAMPAIGN_START:
             return {
                 ...state,
                 isLoading: true,
                 errors: null
             }
-        case NEW_ORG_SUCCESS:
+        case NEW_CAMPAIGN_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 errors: null
             }
-        case NEW_ORG_FAILURE:
+        case NEW_CAMPAIGN_FAILURE:
             return {
                 ...state,
                 isLoading: false,
                 errors: payload
             }
-        case UPDATE_ORG_START:
+        case UPDATE_CAMPAIGN_START:
             return {
                 ...state,
                 isLoading: true
             }
-        case UPDATE_ORG_SUCCESS:
+        case UPDATE_CAMPAIGN_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
             }
-        case UPDATE_ORG_FAILURE:
+        case UPDATE_CAMPAIGN_FAILURE:
             return {
                 ...state,
                 isLoading: false,
                 errors: payload
             }
-        case DELETE_ORG_START:
+        case DELETE_CAMPAIGN_START:
             return {
                 ...state,
                 isLoading: true
             }
-        case DELETE_ORG_SUCCESS:
-            const { orgData } = state
-            const newOrgData = orgData.filter(org => {
-                return org.id !== payload[0]
+        case DELETE_CAMPAIGN_SUCCESS:
+            const { campData } = state
+            const newCampData = campData.filter(camp => {
+                return camp.id !== payload[0]
             })
             return {
                 ...state,
-                orgData: [...newOrgData],
+                campData: [...newCampData],
                 isLoading: false
             }
-        case DELETE_ORG_FAILURE:
+        case DELETE_CAMPAIGN_FAILURE:
             return {
                 ...state,
                 isLoading: false,

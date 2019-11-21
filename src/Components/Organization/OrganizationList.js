@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 
 import AddOrg from "./AddOrg";
@@ -6,11 +6,15 @@ import Organization from './Organization'
 import { getOrg } from '../../actions'
 
 const OrganizationList = (props) => {
+  const [toggleGet, setToggleGet] = useState(false)
 
   useEffect(()=> {
     props.getOrg()
-    console.log('state org', props.org)
-  },[])
+  },[toggleGet])
+
+  function toggleUpdate() {
+    setToggleGet(!toggleGet)
+  }
 
   if(props.isLoading){
     return (
@@ -20,9 +24,9 @@ const OrganizationList = (props) => {
 
   return (
     <div>
-      <AddOrg />
+      <AddOrg toggleUpdate={()=>toggleUpdate()}/>
       {props.org.map(org => (
-        <Organization name={org.name} mission={org.mission} id={org.id}/>
+        <Organization toggleUpdate={toggleUpdate} name={org.name} mission={org.mission} id={org.id}/>
       ))}
     </div>
   );

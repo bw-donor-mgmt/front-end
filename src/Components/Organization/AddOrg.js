@@ -22,13 +22,14 @@ const FormikAddOrg = withFormik({
       name: name || ""
     };
   },
-  
+
   validationSchema: Yup.object().shape({
     name: Yup.string().required()
   }),
 
   handleSubmit(values, { props }) {
     props.createOrg(values)
+    props.toggleUpdate()
   }
 })(AddOrg);
 

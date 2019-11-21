@@ -9,7 +9,6 @@ export const getOrg = () => dispatch => {
     axiosWithAuth()
         .get(`organizations`)
         .then(response => {
-            console.log('state', response.data )
             dispatch({ type: GET_ORG_SUCCESS, payload: response.data })
         }
         )
@@ -26,11 +25,43 @@ export const createOrg = (newOrg) => dispatch => {
     dispatch({ type: NEW_ORG_START })
     axiosWithAuth()
         .post('organizations', newOrg)
-        .then(res =>
-            dispatch({ type: NEW_ORG_SUCCESS, payload: res.data })
-        )
+        .then(res => { 
+            dispatch({ type: NEW_ORG_SUCCESS, payload: res.data }) 
+        })
         .catch(err =>
             dispatch({ type: NEW_ORG_FAILURE, payload: err })
         )
 
+}
+
+export const UPDATE_ORG_START = "UPDATE_ORG_START"
+export const UPDATE_ORG_SUCCESS = "UPDATE_ORG_SUCCESS"
+export const UPDATE_ORG_FAILURE = "UPDATE_ORG_FAILURE"
+
+export const updateOrg = (id, orgChanges) => dispatch => {
+    dispatch({ type: UPDATE_ORG_START })
+    axiosWithAuth()
+        .put(`organizations/${id}`, orgChanges)
+        .then(res => {
+            console.log('updateOrg', res)
+            dispatch({ type: UPDATE_ORG_SUCCESS, payload: res.data })
+        })
+        .catch(err =>
+            dispatch({ type: UPDATE_ORG_FAILURE, payload: err })
+        )
+}
+
+export const DELETE_ORG_START = "DELETE_ORG_START"
+export const DELETE_ORG_SUCCESS = "DELETE_ORG_SUCCESS"
+export const DELETE_ORG_FAILURE = "DELETE_ORG_FAILURE"
+
+export const deleteOrg = (id) => dispatch => {
+    dispatch({type: DELETE_ORG_START})
+    axiosWithAuth()
+        .delete(`organizations/${id}`)
+        .then(res => {
+            console.log('deleteOrg', res)
+            dispatch({ type: DELETE_ORG_SUCCESS, payload: res.data})
+        })
+        .catch(err => dispatch({type: DELETE_ORG_FAILURE, payload: err}))
 }
