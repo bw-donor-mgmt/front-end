@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 import AddDonor from "./AddDonor";
+import DonorCard from "./DonorCard";
 
 const DonorList = props => {
   const [donor, setDonor] = useState([]);
@@ -34,20 +35,24 @@ const DonorList = props => {
       });
   }, [addedDonor]);
   return (
-    <section className="donorList">
+    <section className="list">
+      <h3>{campaign.name}</h3>
+      <p>Goal: ${campaign.goal}</p>
       <AddDonor toggleUpdate={toggleUpdate} />
       {console.log(donor)}
-      {/* {donor.map(DonorList => {
+      {donor.map(list => {
         return (
-          <div>
-            <h3>{DonorList.name}</h3>
-            <h5>{DonorList.email}</h5>
-            <h5>{DonorList.phone}</h5>
-            <h5>{DonorList.contacted_on}</h5>
-            <h5>{DonorList.history}</h5>
-          </div>
+          <DonorCard
+            key={list.id}
+            id={list.id}
+            name={list.name}
+            email={list.email}
+            phone={list.phone}
+            contacted_on={list.contacted_on}
+            campaignId={campaign.id}
+          />
         );
-      })} */}
+      })}
     </section>
   );
 };

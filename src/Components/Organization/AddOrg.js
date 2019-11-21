@@ -8,6 +8,7 @@ const AddOrg = ({ touched, errors }) => {
     <Form>
       <Field type="text" name="name" placeholder="name" />
       {touched.name && errors.name && <p className="UN">{errors.name}</p>}
+      <Field type="text" name="mission" placeholder="mission" />
       <button type="submit">Submit</button>
     </Form>
   );
