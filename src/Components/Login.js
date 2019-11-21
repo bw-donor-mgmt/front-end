@@ -43,17 +43,9 @@ const FormikLoginForm = withFormik({
 
   handleSubmit(values, { props, setStatus }) {
     props.postLogin(values)
-
+    setTimeout(()=>{props.history.push('/homepage')},1500)
   }
 })(LoginPage);
 
 export default connect(null, { postLogin })(FormikLoginForm);
 console.log("this is the HOC", FormikLoginForm);
-
-// axios
-// .post("", values)
-// .then(res => {
-//   setStatus(res.data);
-//   console.log(res);
-// })
-// .catch(err => console.log(err.response));

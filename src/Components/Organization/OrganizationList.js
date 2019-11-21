@@ -1,31 +1,38 @@
+import React, { useEffect } from "react";
+import { connect } from 'react-redux';
 
-import React, { useState, useEffect } from "react";
-import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 import AddOrg from "./AddOrg";
-import Organization from "./Organization";
+import Organization from './Organization'
+import { getOrg } from '../../actions'
 
-const OrganizationList = () => {
-  const [org, setOrg] = useState([]);
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`organizations`)
-      .then(response => {
-        setOrg(response.data);
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+const OrganizationList = (props) => {
+
+  useEffect(()=> {
+    props.getOrg()
+    console.log('state org', props.org)
+  },[])
+
+  if(props.isLoading){
+    return (
+      <div>Loading</div>
+    )
+  }
+
   return (
     <div>
       <AddOrg />
-      {org.map(org => (
-        <Organization name={org.name} mission={org.mission} id={org.id} />
+      {props.org.map(org => (
+        <Organization name={org.name} mission={org.mission} id={org.id}/>
       ))}
     </div>
   );
 };
 
-export default OrganizationList;
+const mapStateToProps = ({orgReducer}) => {
+  return {
+    org: orgReducer.orgData,
+    isLoading: orgReducer.isLoading
+  }
+}
+export default connect(mapStateToProps, { getOrg })(OrganizationList);
 

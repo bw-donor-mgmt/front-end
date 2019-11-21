@@ -11,7 +11,7 @@ const initState = {
 }
 
 export const loginReducer = (state = initState, { type, payload }) => {
-    switch (type) {
+    switch(type){
         case LOGIN_START:
             return {
                 ...state,

@@ -47,7 +47,8 @@ const FormikSignupForm = withFormik({
   }),
 
   handleSubmit(values, { props, setStatus }) {
-    props.postSignup()
+    props.postSignup(values)
+    props.history.push('/')
   }
 })(SignUpPage);
 

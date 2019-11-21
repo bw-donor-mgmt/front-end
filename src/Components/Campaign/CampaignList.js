@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CampaignCard from "./CampaignCard";
-import AddCampaign from './AddCampaign'
 import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 import AddCampaign from "./AddCampaign";
 
@@ -19,7 +18,7 @@ const CampaignList = props => {
   }, []);
   useEffect(() => {
     axiosWithAuth()
-      .get(`organizations/${id}`)
+      .get(`organizations/${id}/info`)
       .then(response => {
         setOrg(response.data);
         console.log(response);

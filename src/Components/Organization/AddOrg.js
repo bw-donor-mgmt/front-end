@@ -1,7 +1,9 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
+import { connect } from 'react-redux'
+
+import { createOrg } from '../../actions'
 
 const AddOrg = ({ touched, errors }) => {
   return (
@@ -20,18 +22,14 @@ const FormikAddOrg = withFormik({
       name: name || ""
     };
   },
+  
   validationSchema: Yup.object().shape({
     name: Yup.string().required()
   }),
-  handleSubmit(values, { setStatus }) {
-    axiosWithAuth()
-      .post("/organizations", values)
-      .then(res => {
-        setStatus(res.data);
-        console.log(res);
-      })
-      .catch(err => console.log(err.response));
+
+  handleSubmit(values, { props }) {
+    props.createOrg(values)
   }
 })(AddOrg);
 
-export default FormikAddOrg;
+export default connect(null, { createOrg })(FormikAddOrg);
