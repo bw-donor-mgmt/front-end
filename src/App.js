@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Route } from "react-router-dom";
+
+import Homepage from "./Components/Homepage";
+import Login from "./Components/Login";
+import SignUp from "./Components/SignUp";
+import DonorList from "./Components/Donor/DonorList";
+import DonationList from "./Components/Donations/DonationList";
+import CampaignList from "./Components/Campaign/CampaignList";
+import FullDonorList from './Components/Donor/FullDonorList'
+import PrivateRoute from "./Routes/PrivateRoute"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header"></header>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/SignUp" component={SignUp} />
+      <PrivateRoute exact path="/Homepage" component={Homepage} />
+      <PrivateRoute exact path="/Donors" component={FullDonorList} />
+      <PrivateRoute exact path="/charity/:id" component={CampaignList} />
+      <PrivateRoute exact path="/charity/:id/donor" component={DonorList} />
+      <PrivateRoute path="/charity/:id/donor/:donorId" component={DonationList} />
     </div>
   );
 }
