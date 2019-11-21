@@ -3,10 +3,10 @@ import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 
 import DonorCard from "./DonorCard";
 import { connect } from "react-redux";
-import { getDonors } from "../../actions"
-import AddDonation  from '../Donations/AddDonations'
+import { getDonors } from "../../actions";
+import AddDonation from "../Donations/AddDonations";
 
-const DonorList = (props) => {
+const DonorList = props => {
   const [campaign, setCampaign] = useState([]);
   const [addedDonor, setAddedDonor] = useState(false);
   const id = props.match.params.id;
@@ -14,10 +14,10 @@ const DonorList = (props) => {
   const toggleUpdateCampDonor = () => {
     setAddedDonor(!addedDonor);
   };
-  
-  useEffect(()=> {
-    props.getDonors(id)
-  },[addedDonor])
+
+  useEffect(() => {
+    props.getDonors(id);
+  }, [addedDonor]);
 
   useEffect(() => {
     axiosWithAuth()
@@ -30,17 +30,18 @@ const DonorList = (props) => {
       });
   }, []);
 
-  if(props.isLoading) {
-    return(
-    <div>Loading</div>
-    )
+  if (props.isLoading) {
+    return <div>Loading</div>;
   }
 
   return (
     <section className="list">
       <h3>{campaign.name}</h3>
       <p>Goal: ${campaign.goal}</p>
-      <AddDonation campaignId={id} toggleUpdateCampDonor={toggleUpdateCampDonor}/>
+      <AddDonation
+        campaignId={id}
+        toggleUpdateCampDonor={toggleUpdateCampDonor}
+      />
       {props.donor.map(list => {
         return (
           <DonorCard
@@ -58,11 +59,11 @@ const DonorList = (props) => {
   );
 };
 
-const mapStateToProps = ({donorReducer}) => {
-    return {
-      donor: donorReducer.donorData,
-      isLoading: donorReducer.isLoading
-    }
-}
+const mapStateToProps = ({ donorReducer }) => {
+  return {
+    donor: donorReducer.donorData,
+    isLoading: donorReducer.isLoading
+  };
+};
 
 export default connect(mapStateToProps, { getDonors })(DonorList);
