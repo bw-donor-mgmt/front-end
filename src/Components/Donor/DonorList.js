@@ -40,7 +40,7 @@ const DonorList = (props) => {
     <section className="list">
       <h3>{campaign.name}</h3>
       <p>Goal: ${campaign.goal}</p>
-      <AddDonation toggleUpdateCampDonor={toggleUpdateCampDonor}/>
+      <AddDonation campaignId={id} toggleUpdateCampDonor={toggleUpdateCampDonor}/>
       {props.donor.map(list => {
         return (
           <DonorCard

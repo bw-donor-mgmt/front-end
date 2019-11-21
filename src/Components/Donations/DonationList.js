@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux'
+
+import { getDonations } from '../../actions'
 import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
 import DonationCard from "./DonationCard";
 import AddDonations from "./AddDonations";
+import { from } from "rxjs";
 
-const DonationList = props => {
-  const [donation, setDonation] = useState([]);
+const DonationList = (props) => {
   const id = props.match.params.id;
-  const donorId = props.match.params.donorId;
+  // const donorId = props.match.params.donorId;
   const [donor, setDonor] = useState([]);
+
   useEffect(() => {
-    axiosWithAuth()
-      .get(`donors/${donorId}/donations`)
-      .then(response => {
-        setDonation(response.data);
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    props.getDonations(id)
   }, []);
+
   useEffect(() => {
     axiosWithAuth()
       .get(`donors/${id}`)
@@ -30,11 +27,18 @@ const DonationList = props => {
         console.log(error);
       });
   }, []);
+
+  if(props.isLoading) {
+    return (
+      <div>Loading</div>
+    )
+  }
+
   return (
     <div>
       <h1>{donor.name}</h1>
       <AddDonations />
-      {donation.map(list => {
+      {props.donation.map(list => {
         return (
           <DonationCard
             key={list.id}
@@ -49,4 +53,11 @@ const DonationList = props => {
   );
 };
 
-export default DonationList;
+const mapStateToProps = ({donationReducer}) => {
+  return {
+    donation: donationReducer.donationData,
+    isLoading: donationReducer.isLoading
+  }
+}
+
+export default connect(mapStateToProps, { getDonations })(DonationList);
