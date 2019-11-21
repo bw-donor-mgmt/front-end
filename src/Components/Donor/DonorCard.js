@@ -9,21 +9,22 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const CampaignCard = props => {
+const DonorCard = props => {
   return (
     <div>
       <Card>
         <CardHeader tag="h3">{props.name}</CardHeader>
         <CardBody>
-          <CardText>{props.description}</CardText>
-          <Link to={`/charity/${props.id}/donor`}>
-            <Button>See Donor List</Button>
+          <CardText>{props.email}</CardText>
+          <CardText>{props.phone}</CardText>
+          <Link to={`/charity/${props.campaignId}/donor/${props.id}`}>
+            <Button>See Donor</Button>
           </Link>
         </CardBody>
-        <CardFooter> Goal: ${props.goal}</CardFooter>
+        <CardFooter>Last Contacted On: {props.contacted_on}</CardFooter>
       </Card>
     </div>
   );
 };
 
-export default CampaignCard;
+export default DonorCard;
