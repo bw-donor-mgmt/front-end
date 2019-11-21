@@ -27,6 +27,7 @@ const CampaignCard = (props) => {
     updateCampaign,
     deleteCampaign
   } = props
+  
   const [modal, setModal] = useState(false);
   const [campInfo, setCampInfo] = useState({
     name: name,

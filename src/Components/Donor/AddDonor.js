@@ -1,7 +1,9 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { axiosWithAuth } from "../../Utils/AxiosWithAuth";
+import { connect } from "react-redux";
+
+import {createDonor} from '../../actions'
 
 const AddDonor = ({ touched, errors }) => {
   return (
@@ -19,7 +21,7 @@ const AddDonor = ({ touched, errors }) => {
       <label>Preferred Contact Method</label>
       <Field as="select" name="method">
         <option value="phone">Phone</option>
-        <option value="Email">Email</option>
+        <option value="email">Email</option>
       </Field>
       {touched.method && errors.method && <p className="MD">{errors.method}</p>}
       <button type="submit">Create New Donor</button>
@@ -34,7 +36,7 @@ const FormikAddDonor = withFormik({
       phone: phone || "",
       email: email || "",
       contacted_on: contacted_on || "",
-      method: method || false
+      method: method || "phone" 
     };
   },
   validationSchema: Yup.object().shape({
@@ -43,16 +45,10 @@ const FormikAddDonor = withFormik({
     email: Yup.string().required(),
     contacted_on: Yup.string().required()
   }),
-  handleSubmit(values, { props, setStatus }) {
-    axiosWithAuth()
-      .post("/donors", values)
-      .then(res => {
-        setStatus(res.data);
-        console.log(res);
-      })
-      .catch(err => console.log(err.response));
-    props.toggleUpdate();
+  handleSubmit(values, { props }) {
+    props.createDonor(values)
+    setTimeout(()=> {props.toggleUpdateAllDonors()}, 1000)
   }
 })(AddDonor);
 
-export default FormikAddDonor;
+export default connect(null, {createDonor})(FormikAddDonor);
